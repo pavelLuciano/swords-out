@@ -1,0 +1,4 @@
+interface IStopable
+{
+    void stop();
+}

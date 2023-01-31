@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class VerticalSlash : Attack
+{
+
+    public VerticalSlash() : base()
+    {
+        Vector2Int direction = Vector2Int.down;
+        Vector2Int[] attackedBlocks = { new Vector2Int(0, 1), new Vector2Int(1, 1) };
+        hits = new Hit[1]
+        {
+            new Hit(direction, attackedBlocks)
+        };
+    }
+
+
+    public override IEnumerator attackEjecution()
+    {
+        currentHit = hits[0];
+        Debug.Log("VERTICAL SLASH!!!!");
+        //vamos a probar una caosas aca para ver si esto funciona pero deberi ser asi
+        yield return new WaitForSeconds(MainGameController.TIME_UNIT * 17f);
+        currentHit = Hit.noHit;
+    }
+}
