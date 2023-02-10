@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GridManager : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject blockPrefab;
     [SerializeField] private GameObject xPrefab;
     [SerializeField] private PlayerControl player;
+    [SerializeField] private Text debugText;
 
+    private string dataText;
     private Enemy enemyFoe;
     private GameObject[,] visualGrid;
     private GameObject[,] xGrid;
@@ -19,6 +22,7 @@ public class GridManager : MonoBehaviour
     {
         visualGrid = new GameObject[2, 3];
         xGrid = new GameObject[2, 3];
+        dataText = ""; 
     }
 
     // Start is called before the first frame update
@@ -32,6 +36,7 @@ public class GridManager : MonoBehaviour
     void Update()
     {
         dyeGrid();
+        showText();
     }
 
 
@@ -55,7 +60,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject block = Instantiate(blockPrefab);
                 visualGrid[i, j] = block;
-                if (player.getHitbox().isPlayerAtCoords(i, j))
+                if (player.isPlayerAtCoords(i, j))
                     visualGrid[i, j].GetComponent<SpriteRenderer>().color = Color.green;
                 visualGrid[i, j].transform.position = new Vector3(j,-i,0);
             }
@@ -66,7 +71,7 @@ public class GridManager : MonoBehaviour
         for(int i = 0; i < 2; i++)
             for (int j = 0; j < 3; j++)
             {
-                if (player.getHitbox().isPlayerAtCoords(i, j))
+                if (player.isPlayerAtCoords(i, j))
                 {
                     if (!player.canMove()) visualGrid[i, j].GetComponent<SpriteRenderer>().color = Color.yellow;
                     else visualGrid[i, j].GetComponent<SpriteRenderer>().color = Color.green;
@@ -97,4 +102,11 @@ public class GridManager : MonoBehaviour
             xGrid[x, y].transform.position = new Vector3(y, -x, 0);
         }
     }
+
+    private void showText()
+    {
+        dataText = "escudo: " + player.getShieldDirection().ToString() + "\n escudo: " + player.isPlayerShielding();
+        debugText.text = dataText;
+    }
+
 }

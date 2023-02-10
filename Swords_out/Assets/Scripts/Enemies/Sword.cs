@@ -43,7 +43,7 @@ public class Sword : Enemy
         if (timer > 3 && counter == 3)
         {
             int i = Random.Range(0, 3);
-            currentAttack = attacks[i];
+            currentAttack = attacks[0];
             //Debug.Log("0");
             counter = 0;
             timer = 0f;

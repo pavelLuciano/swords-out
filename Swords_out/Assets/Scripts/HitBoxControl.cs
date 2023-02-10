@@ -5,9 +5,14 @@ using UnityEngine;
 public class HitBoxControl
 {
 
-    private bool[,] playerPos;
+    public bool[,] playerPos;
+    public bool duck;
+
+    //Shield Fields
     public Vector2Int shieldDirection;
-    private bool duck;
+    public bool activeShield;
+    public float timeShielding;
+
 
 
 
@@ -18,7 +23,6 @@ public class HitBoxControl
         shieldDirection = new Vector2Int(0, 0);
     }
 
-    public bool isPlayerAtCoords(int i , int j) { return playerPos[i,j]; }
     public bool isDucking() { return duck; }
     public void setDucking(bool ducking) 
     { 
@@ -42,11 +46,6 @@ public class HitBoxControl
     {
         duck = false;
         moveTo(1);
-    }
-
-    public void defend(Vector2Int shielDirection)
-    {
-        this.shieldDirection = shielDirection;
     }
 
 }
